@@ -99,7 +99,7 @@ export class AuthService {
 
   public async validateEmail(token: string) {
     //* Verificamos si el token es valido
-    const payload = await JwtAdapter.verifyToken(token);
+    const payload = await JwtAdapter.validateToken(token);
     if (!payload) throw CustomError.unauthorized("Invalid token");
     
     const { email } = payload as { email: string };

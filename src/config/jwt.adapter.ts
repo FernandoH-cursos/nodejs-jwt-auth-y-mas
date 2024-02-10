@@ -20,7 +20,7 @@ export class JwtAdapter{
   }
   
   //? Metodo para verificar un token JWT 
-  static verifyToken(token: string) {
+  static validateToken<T>(token: string): Promise<T|null> {
     return new Promise((resolve) => {
       //* Verificamos que el token sea valido y que no haya expirado.
       //* Si el token es valido nos devuelve el payload del usuario.
@@ -29,7 +29,7 @@ export class JwtAdapter{
       jwt.verify(token, JWT_SEED, (err, decoded) => {
         if (err) return resolve(null);
 
-        resolve(decoded);
+        resolve(decoded as T);
       });
     });
   }

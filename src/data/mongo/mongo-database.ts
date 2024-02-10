@@ -5,7 +5,7 @@ interface Options{
   dbName: string;
 }
 
-//* Clase que se encarga de la conexión a la base de datos de mongoDB 
+//* Clase que se encarga de la conexión y desconexion a la base de datos de mongoDB 
 export class MongoDatabase { 
   static async connect(options: Options) {
     const { mongoUrl, dbName } = options;
@@ -20,5 +20,9 @@ export class MongoDatabase {
       console.log('Mongo connection error');
       throw error;
     }
+  }
+
+  static async disconnect() {
+    await mongoose.disconnect();
   }
 }

@@ -21,6 +21,7 @@ export class EmailService {
     mailerService: string,
     mailerEmail: string,
     senderEmailPassword: string,
+    private readonly postToProvider: boolean,
   ) {
     //? Configuracion para enviar correo con nodemailer
     this.transporter = nodemailer.createTransport({
@@ -41,6 +42,9 @@ export class EmailService {
     htmlBody,
     attachments = [],
   }: SendMailOptions) {
+    //* Validacion para no enviar correos si no se quiere 
+    if (!this.postToProvider) return true;
+
     //* Al enviar el email se pasa el correo(o varios correos) a quien va, el sujeto,
     //* el html del body y opcionalmente un archivo adjunto.
     const mailOptions = {
